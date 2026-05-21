@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: rgb(12, 15, 26);
+            border: 1px solid rgb(26, 31, 46);
+            color: white;
+        }
+
+        .list {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            padding: 0;
+        }
+
+        li {
+            font-size: 36px;
+            animation: rotate 2s linear;
+            margin: 0 5px;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(1080deg);
+            }
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .range {
+            margin-bottom: 10px;
+        }
+
+        .click {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="range" min="1" max="6" class="range">
+        <ul class="list"></ul>
+        <button class="click">Click</button>
+    </div>
+
+    <script>
+        let zarralar = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]
+        let randomZarlar = [];
+
+        const range = document.querySelector(".range");
+        const list = document.querySelector(".list");
+        const click = document.querySelector(".click");
+        let counter = 0;
+
+        range.oninput = () => {
+            let value = range.value;
+            list.innerHTML = "";
+            counter = value;
+
+            for (let i = 0; i < value; i++) {
+                let li = document.createElement("li");
+                li.innerHTML = zarralar[i];
+                list.appendChild(li);
+            }
+        }
+
+        click.onclick = () => {
+            randomZarlar = [];
+            for (let i = 0; i < counter; i++) {
+                randomZarlar.push(zarralar[Math.floor(Math.random() * 6)]);
+            }
+            update();
+            console.log(randomZarlar);
+        }
+
+        function update() {
+            list.innerHTML = "";
+            randomZarlar.forEach(el => {
+                let li = document.createElement("li");
+                li.innerHTML = el;
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
